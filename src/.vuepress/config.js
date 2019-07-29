@@ -10,6 +10,7 @@ module.exports = {
         ],
         repo: 'ImSingee/uni-push-backend',
         docsRepo: 'ImSingee/uni-push-doc',
+        docsDir: 'src',
         editLinks: true,
         editLinkText: '帮助我们改善此页面！',
         lastUpdated: '上次更新',
