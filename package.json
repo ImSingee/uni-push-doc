@@ -6,8 +6,8 @@
   "author": "Singee <imsingee@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "vuepress dev .",
-    "build": "vuepress build ."
+    "start": "vuepress dev src",
+    "build": "vuepress build src"
   },
   "devDependencies": {
     "vuepress": "^1.0.2"
