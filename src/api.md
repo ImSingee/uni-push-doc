@@ -93,7 +93,7 @@ POST 参数：可选 - 替换预设的推送参数
 
 ### 生成邀请码
 
-#### POST /account/user/invite/:type/
+#### POST /account/invite/:type/
 
 参数：
 
@@ -101,18 +101,20 @@ POST 参数：可选 - 替换预设的推送参数
 
 成功返回：
 
-+ code, String - 生成的邀请码（quantity=1 时返回）
-+ codes, Array(String) - 生成的邀请码（quantity>1 时返回）
 + quantity, Int - 生成的邀请码个数
-+ times, Int - 生成的邀请码可用次数
-+ valid_time, Time - 生成的邀请码过期时间，null 代表永久有效
++ codes, Array(Object) - 生成的邀请码信息数组，每个数组成员如下
+  + code, String - 生成的邀请码
+  + available_times, Int - 生成的邀请码可用次数
+  + valid_to, Time - 生成的邀请码过期时间，null 代表永久有效
 
 **[type=auto] 自动生成邀请码**  
 
 POST 参数：
 
 + limit_email, 必选 - 限制邀请码必须被指定的邮箱使用
-+ recaptcha_response, 可选 - [type=auto] 时的 Google Recaptcha V3 验证结果
++ recaptcha_response, 可选 - Google Recaptcha V3 验证结果
+
+该接口只可能返回一个邀请码
 
 当设定为开放注册时可以利用此接口为指定的邮箱生成邀请码，此接口必须传入 limit_email，邀请码将仅限此邮箱使用。  
 如后台设定开启了 Google Recaptcha，则需传入 recaptcha_response 参数用于进行真人验证
