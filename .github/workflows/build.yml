@@ -32,7 +32,7 @@ jobs:
         env:
           TZ: Asia/Shanghai
         run: |
-          mv main/build ./pages
+          mv main/.vuepress/dist ./pages
           cd pages
           git init
           git checkout -b gh-pages
