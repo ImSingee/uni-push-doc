@@ -1,0 +1,45 @@
+name: CD
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: 12.x
+      - name: Checkout main repo
+        uses: actions/checkout@v2
+        with:
+          path: main
+      - name: Install dependencies
+        run: |
+          cd main
+          yarn install 
+      - name: Build
+        run: |
+          cd main
+          yarn build
+      - name: Setup global git user
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Action"
+      - name: Commit generated pages
+        env:
+          TZ: Asia/Shanghai
+        run: |
+          mv main/build ./pages
+          cd pages
+          git init
+          git checkout -b gh-pages
+          git add .
+          git commit -m "Auto Delopy at `date +"%Y-%m-%d %H:%M"`"
+      - name: Push generated pages
+        run: |
+          cd pages
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git push origin gh-pages --force
